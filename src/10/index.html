@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Xiao Feng</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+     canvas{
+         display: block;
+         background:#06AF8F linear-gradient(
+             135deg,
+             rgb(142,132,133)0%,
+             rgb(230,132,110)100%
+         );
+     }
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+</body>
+<script>
+   let oc = document.querySelector('canvas');
+   let cxt = oc.getContext('2d');
+   let w = oc.width = window.innerWidth;
+   let h = oc.height=window.innerHeight;
+
+   let color = cxt.createLinearGradient(w/2,h/2-100,w/2,h/2+100);
+        color.addColorStop(0,'#00f');
+        color.addColorStop(0.5,'#f00');
+        color.addColorStop(1,'#0f0');
+
+   window.addEventListener ('resize',function(){
+     w = oc.width = window.innerWidth;
+     h = oc.height=window.innerHeight;
+   })
+   //绘制文字
+   let str = '温馨提示：请把音乐拖入到此区域，便可以播放音乐，感受跳动的音符';
+   	cxt.font = '25px 微软雅黑';
+   	cxt.fillStyle = '#000';
+    cxt.fillText(str,w/2-350 ,100)
+
+   //阻止默认事件
+   document.addEventListener('dragover',function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        })
+    
+   //拖拽播放音乐
+    document.addEventListener ('drop',createDrop)
+    function createDrop(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        let dataTransfer = e.dataTransfer;
+        let dataAudio = dataTransfer.files[0];
+
+        let blob = new Blob([dataAudio],{type:'audio/mpeg'});
+        let url = window.URL.createObjectURL(blob);
+        let audio = document.createElement('audio');
+        audio.src = url;
+        audio.volume = 1;
+        document.body.appendChild(audio);
+        audio.play();
+        audioCanvas(audio);
+    }
+
+     //绘制矩形函数 
+    function audioCanvas(audio){
+        //创建音频对象
+        let audioCxt = new AudioContext();
+
+        //创建分析机
+        let analyser = audioCxt.createAnalyser(); 
+
+        //创建对象分析audio标签 
+        let audioSrc = audioCxt.createMediaElementSource(audio);
+
+        //把媒体源 和分析机连接起来 
+        audioSrc.connect(analyser);
+
+        //mp3 -分析器-（目的地）耳机
+        audioSrc.connect(audioCxt.destination)
+
+         //绘制音频（根据频率数据 绘制矩形高度）
+         let conut = 200;
+         let data = new Uint8Array(analyser.frequencyBinCount); // 是频率数据 1024长度
+
+         (function draw() {
+                cxt.clearRect(0,0,w,h);
+                analyser.getByteFrequencyData(data);
+                let step = Math.round( data.length/conut ); //抽样 不需要1024条数据 间隔5个抽取一条数据 
+                //console.log( data )
+                for ( let i=0;i<conut;i++ ){
+                    let lineH = data[step*i];
+                    cxt.fillStyle = color;
+                    cxt.fillRect(w/2+i*4,h/2,2,-lineH);
+                    cxt.fillRect((w/2)-(i)*4,h/2,2,-lineH);
+                    cxt.fillRect(w/2+i*4,h/2,2,lineH);
+                    cxt.fillRect((w/2)-(i)*4,h/2,2,lineH);
+                }
+                requestAnimationFrame(draw)
+            })();
+    }    
+</script>
+</html>

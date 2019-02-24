@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+ <title>Xiao Feng</title>
+ <style>
+ 	*{margin: 0;padding: 0}
+ 	ul li{list-style: none;}
+ 	#wrap{
+ 		overflow: hidden;
+ 		position: relative;
+ 		width:260px;
+ 		height: 480px;
+ 		margin: 50px auto;
+ 	}
+ 	.box{
+ 		overflow: hidden;
+ 		position: absolute;
+ 		width: 260px;
+ 		height: 400px;
+ 	}
+ 	.box img{
+ 		position: absolute;
+ 		top: 0;
+ 	}
+ 	p{
+ 		display: block;
+ 		width: 100%;
+ 		height: 50px;
+ 		background-color: #ccc;
+ 		text-align: center;
+ 		line-height: 50px;
+ 		font-size: 20px;
+ 		font-weight: bold;
+ 		cursor: pointer;
+ 	}
+ 	p .top{
+ 		position: absolute;
+ 		top: 0;
+ 		left: 0;
+ 	}
+ 	p.bottom{
+ 		position: absolute;
+ 		bottom: 0;
+ 		left: 0;
+ 	}
+ </style>
+</head>
+<body>
+	<div id="wrap">
+		<p class="top">向上滚动</p>
+		<div class="box">
+			 <img src="images/1.png" alt="" id="img" width="260" height="854">
+		</div>
+		<p class="bottom">向下滚动</p>
+	</div>
+  <script>
+  	//封装一个获取对象属性的函数
+  	let util = function(ele,prop){
+  		return Number.parseFloat(getComputedStyle(ele)[prop]);
+  	}
+
+  	let oP = document.getElementsByTagName('p');
+  	let oImg = document.getElementById('img');
+    let oBox = document.getElementsByClassName('box')[0];
+  	let top1 =util(oImg,'top');
+  	let minTop = util(oBox,'height')-util(oImg,'height');
+  	//console.log(minTop)
+    let num = 20;
+    
+
+  	//向上滚动
+     oP[0].onclick = function(){
+        top1 -= num;
+        oImg.style.top = top1 +'px';
+        top1 = Math.max(minTop,top1);
+       // console.log(top1);
+       
+         }
+  	//向下滚动
+  	  oP[1].onclick = function(){
+        top1 += num;
+        top1 = Math.min(0,top1);
+        oImg.style.top = top1 +'px';
+        
+    }
+  </script> 
+</body>
+</html>

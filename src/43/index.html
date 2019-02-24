@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{ margin:0; padding:0;}
+        #warp{
+         width: 404px;
+         height: 44px;
+         margin: 100px auto;
+        position: relative;
+        }
+        #search{
+            width: 400px;
+            height: 40px;
+            text-indent: 10px;
+
+        }
+        #list{
+            width: 402px;
+            position: absolute;
+            top: 44px;
+            border:1px solid #999;
+            display: none;
+        }
+        #list ul li {
+            width: 400px;
+            height: 25px;
+            line-height: 25px;
+            list-style: none;
+            font-size: 14px;
+            text-indent: 10px;
+        }
+        #list ul li a{
+            display: block;
+            text-decoration: none;
+            color: #333
+        }
+        #list ul li a:hover{
+            background:#ddd;
+        }
+    </style>
+</head>
+<body>
+<div id="warp">
+    <input type="text" id="search"/>
+    <div id="list">
+       <ul>
+            <!--<li><a href="">关键词1</a></li>-->
+            <!--<li><a href="">关键词2</a></li>-->
+            <!--<li><a href="">关键词3</a></li>-->
+            <!--<li><a href="">关键词4</a></li>-->
+        </ul>
+    </div>
+
+</div>
+<script type="text/javascript">
+      var oSearch = document.getElementById('search');
+      var oList = document.getElementById('list');
+      var oUl = oList.getElementsByTagName('ul')[0];
+
+      oSearch.onkeyup = function(){
+          var val = this.value;
+          var oS = document.createElement('script');
+          oS.src = 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+ val +'&cb=xiaofeng';
+          document.body.appendChild( oS );
+          if( val){
+              oList.style.display = 'block';
+          }else{
+              oList.style.display = 'none';
+          }
+      };
+         function xiaofeng(mJson){
+             oUl.innerHTML ="";
+           for( var i = 0;i< mJson.s.length;i++){
+                var oLi =  document.createElement('li');
+               oLi.innerHTML = '<a href="https://www.baidu.com/s?wd='+ mJson.s[i] +'" target="new">'+ mJson.s[i] +'</a>';
+                oUl.appendChild(oLi);
+           }
+         }
+</script>
+</body>
+</html>

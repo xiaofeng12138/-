@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>全选框</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #wrap{
+            width: 400px;
+            height: 520px;
+            margin: 50px auto;
+            border: 1px solid pink;
+        }
+        h3{
+            text-align: center;
+            margin-top: 10px;
+        }
+        .li{
+            background: url("images/ck.png") no-repeat 6px 30px;
+            list-style: none;
+            width: 100%;
+            height: 80px;
+            text-indent:40px;
+            line-height: 80px;
+            border-bottom: 1px dashed #ccc;
+        }
+        .p{
+            display: block;
+            width: 100%;
+            height: 80px;
+            background: url("images/ck.png")no-repeat 6px 30px;
+            padding-left: 40px;
+            line-height: 77px;
+        }
+        .on{
+            display: block;
+            width: 100%;
+            height: 100px;
+            background: url("images/cked.jpg")no-repeat 6px 30px;
+            padding-left: 40px;
+            line-height: 77px;
+        }
+        .onn{
+            background: url("images/cked.jpg") no-repeat 6px 30px;
+            list-style: none;
+            width: 100%;
+            height: 80px;
+            text-indent:40px;
+            line-height: 80px;
+            border-bottom: 1px dashed #ccc;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <h3>你想下面哪一位做你的女朋友？？</h3>
+    <ul>
+        <li class="li">焰灵姬</li>
+        <li class="li">雪女</li>
+        <li class="li">月儿</li>
+        <li class="li">少司命</li>
+        <li class="li">石兰</li>
+        <p class="p"> 全选 </p>
+    </ul>
+</div>
+<script>
+    let oWp = document.getElementById('wrap'),
+        oLi = oWp.getElementsByTagName('li'),
+        oP =oWp.getElementsByTagName('p')[0],
+        len = oLi.length;
+    let count = 0;
+   oP.bool = false;
+
+    for(let i = 0 ;i<len;i++){
+        oLi[i].bool = false;   //判断开关
+        oLi[i].onclick = function(){
+            if(this.bool){
+                this.className = 'li';
+                count --;
+            }else{
+                this.className = 'onn';
+                count ++;
+            }
+            if( count === len){
+                oP.className = 'on ';
+                oP.bool = true;
+            }else{
+                oP.className = 'p '
+                oP.bool = false;
+            }
+            this.bool = !this.bool;
+        }
+    }
+
+    oP.onclick = function(){
+        if(this.bool){
+            for( let i = 0 ;i<len;i++){
+             oLi[i].className = 'li'
+             oLi[i].bool = false;
+            }
+            this.className = 'p';
+            count = 0;
+        }else{
+            for( let i = 0 ;i<len;i++){
+                oLi[i].className = 'onn'
+                oLi[i].bool = true;
+            }
+            this.className = 'on';
+            count = len;
+        }
+        this.bool = !this.bool;
+    }
+
+</script>
+</body>
+</html>

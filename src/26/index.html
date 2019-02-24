@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Xiao Feng</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0}
+		 ul li {list-style: none}
+		 body{
+		 	background-color: #000;
+		 }
+		 #box{
+		 	position: relative;
+
+		 	width: 500px;
+		 	height: 500px;
+		 	margin:50px auto;
+		 }
+		 #box li{
+		 	position: absolute;
+		 	bottom: 0;
+		 	width:100%;
+		 	height: 100px;
+		 	text-align: center;
+		 	line-height: 100px;
+		 	font-size: 30px;
+		 	font: bold;
+		 	color: #fff;
+		 }
+		 #box li:nth-child(1){
+            animation: run1 2s 0s forwards;
+		 }
+		 #box li:nth-child(2){
+            animation: run2 2s 2s forwards;
+		 }
+		 #box li:nth-child(3){
+            animation: run3 2s 4s forwards;
+		 }
+		 #box li:nth-child(4){
+            animation: run4 2s 6s forwards;
+		 }
+		 #box li:nth-child(5){
+            animation: run5 2s 8s forwards;
+		 }
+		 @Keyframes run1{
+		 	 0%{bottom: 0;}
+            100%{ bottom: 400px;}
+		 }
+		 @Keyframes run2{
+		 	 0%{bottom: 0;}
+            100%{ bottom: 300px;}
+		 }
+		 @Keyframes run3{
+		 	 0%{bottom: 0;}
+            100%{ bottom: 200px;}
+		 }
+		 @Keyframes run4{
+		 	 0%{bottom: 0;}
+            100%{ bottom: 100px;}
+		 }
+		 @Keyframes run5{
+		 	 0%{bottom: 0;}
+            100%{ bottom: 0px;}
+		 }
+	</style>
+</head>
+<body>
+	<div id="box">
+		<ul>
+		<li>我知道遇见你不容易</li>
+		<li>错过了很可惜</li>
+		<li>我不想余生都是回忆</li>
+		<li>我想余生都是你</li>
+		<li>我喜欢你</li>
+		</ul>
+	</div>
+   <script></script>
+</html>

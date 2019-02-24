@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>内容可编辑</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #wrap{
+            width: 600px;
+            height: 250px;
+            margin: 50px auto;
+            border: 1px solid pink;
+        }
+        ul li{
+            position: relative;
+            width: 100%;
+            height: 80px;
+            border-bottom: 1px dashed #ccc;
+            list-style: none;
+        }
+        #wrap p {
+            width: 500px;
+            height: 80px;
+            display: block;
+            line-height: 80px;
+            text-indent: 30px;
+        }
+        .btn{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 40px;
+            float: right;
+            outline: none;
+        }
+        .btn1{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 40px;
+            float: right;
+            outline: none;
+            background-color: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <ul>
+        <li>
+            <p>少司命</p>
+            <input type="button" value="修改" class="btn"/>
+        </li>
+        <li>
+            <p>焰灵姬</p>
+            <input type="button" value="修改" class="btn"/>
+        </li>
+        <li>
+            <p>石兰</p>
+            <input type="button" value="修改" class="btn"/>
+        </li>
+    </ul>
+</div>
+<script>
+    let oBtn = document.getElementsByClassName('btn');
+    let oP  = document.getElementsByTagName('p');
+
+
+    for(let i=0;i<oBtn.length;i++){
+        oBtn[i].index = i;
+        oBtn[i].onoff = false;
+        oBtn[i].onclick = function(){
+            if(oBtn[i].onoff){
+                oBtn[i].style.background = '#ccc';
+                oBtn[i].style.color = '#000';
+                oBtn[i].value = '修改';
+                oP[i].removeAttribute('contenteditable');
+            }else{
+                oBtn[i].style.background = '#000';
+                oBtn[i].style.color = '#ccc';
+                oBtn[i].value = '确认';
+                oP[i].setAttribute('contenteditable','true');
+            }
+            this.onoff = !this.onoff;
+        }
+    }
+
+</script>
+</body>
+</html>

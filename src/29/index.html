@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+ <title>Xiao Feng</title>
+ <style>
+ 	*{margin: 0;padding: 0}
+ 	ul li{list-style: none;}
+ 	body {
+      background: #ddd; 
+      user-select: none;
+    }
+ 	#box{
+ 		overflow: hidden;
+ 		width: 350px;
+ 		height: 500px;
+ 		margin: 50px auto;
+ 		border-radius: 10px;
+ 	    box-shadow: 0px 10px 25px 6px rgba(0, 0, 0, .3);
+ 	}
+ 	.screen{
+ 		width: 100%;
+ 		height: 100px;
+ 		background-color: #999;
+ 	}
+ 	.screen p{
+ 		width: 100%;
+ 		height: 50px;
+ 		line-height: 50px;
+ 		font-size: 40px;
+ 		text-align: right;
+ 		color: #fff;
+
+ 	}
+
+ 	.expression{
+        border-radius: 10px 10px 0 0 ;
+ 	}
+ 	.keyboard {
+ 	 width: 100%;
+ 	 height: 80px;
+ 	}
+ 	.keyboard .clear{
+ 		width: 50%;
+ 	}
+ 	.keyboard .zero{
+ 		width: 50%;
+ 	}
+ 	.keyboard li{
+ 		width:25%;
+ 		height: 80px;
+ 		border: 1px solid #999;
+ 		float: left;
+ 		box-sizing: border-box;
+ 		line-height: 80px;
+ 		text-align: center;
+ 		font-size: 30px;
+ 		cursor:pointer;
+ 	}
+ 	 li:nth-child(16){
+      border-radius:0 0 0 10px ;
+ 	}
+  	li:last-child{
+ 		line-height: 60px;
+        border-radius:0 0 10px 0  ;
+ 	}
+ 	.keyboard .symbol{
+ 		background-color: #f60;
+ 		color: #fff;
+ 	}
+
+ </style>
+</head>
+<body>
+	<div id="box">
+		<div class="screen">
+			<p class="expression"></p>
+			<p class="result">0</p>
+		</div>
+		<ul class="keyboard">
+		  <li class="clear">C</li>
+	      <li class="percent">%</li>
+	      <li class="equal">=</li>
+	      <li class="symbol">/</li>
+	      <li class="num">7</li>
+	      <li class="num">8</li>
+	      <li class="num">9</li>
+	      <li class="symbol">*</li>
+	      <li class="num">4</li>
+	      <li class="num">5</li>
+	      <li class="num">6</li>
+	      <li class="symbol">-</li>
+	      <li class="num">1</li>
+	      <li class="num">2</li>
+	      <li class="num">3</li>
+	      <li class="symbol add">+</li>
+	      <li class="num zero">0</li>
+	      <li class="num point">.</li>
+	  </ul>
+	</div>
+  <script>
+
+  	//解决浮点精度运算的问题
+  	function floatBase(a,b){
+  		let aIsInt = Number.isInteger(a*1);
+  		let bIsInt = Number.isInteger(b*1);
+  		let aLastIndex = String(a).length - 1
+        let bLastIndex = String(b).length - 1
+
+  		if(aIsInt && bIsInt ){
+             return 1;
+  		}else {
+  			let aFLen = aLastIndex - (aIsInt ? aLastIndex:String(a).indexOf('.'));
+  			let bFLen = bLastIndex - (bIsInt ? bLastIndex:String(b).indexOf('.'));
+  			return 10 ** ( aFLen >= bFLen ? aFLen : bFLen)
+  		}
+  		
+  	}
+  	floatBase(4.555,3.7);
+  	//计算函数
+  	function computed(x,y,s,b){
+  	  // x 第一个运算数
+      // y 第二个运算数
+      // s 运算符号
+      // b 浮点数运算进制
+      switch (s) {
+      	case "*":
+      		return  (x*b * (y*b))/b**2;
+      		break;
+
+      	case "/":
+      		return  x*b / (y*b);
+      		break;
+
+      	case "-":
+      		return  (x*b - (y*b))/b;
+      		break;	
+
+      	case "+":
+      		return  (x*b + (y*b))/b;
+      		break;
+      }
+  	}
+  // let n = computed(0.6,0.3,'+',10);
+  // console.log(n);
+
+  </script> 
+</body>
+</html>

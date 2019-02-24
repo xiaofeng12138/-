@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Xiao Feng</title>
+	<style type="text/css">
+	body,ul,li,a,div{
+		margin:0;
+		padding:0;
+	}
+
+	ul,li{
+		list-style:none;
+	}
+	.wrap{
+		position:relative;
+		width:670px;
+		height:250px;
+		margin:150px auto;
+
+	}
+	.wrap .cube{
+		width:300px;
+		height:300px;
+		margin:0 auto;
+		transform-style:preserve-3d;
+		transform:rotateX(90deg) rotateY(302deg);
+		 -webkit-animation:go 25s  infinite linear;
+		 animation:go 25s linear;
+/* 		 animation-timing-function: linear; */
+	}
+	.wrap .cube div img{
+		width:200px;
+		height:200px;
+	}
+	.wrap .cube div{
+		position:absolute;
+		top:19px;
+		left:20%;
+		width: 200px;
+		height: 200px;
+		transition: all 1s;
+		opacity:0.7;
+	}
+	.wrap .cube .out-front{transform:rotateY(0deg) translateZ(100px);}
+	.wrap .cube .out-after{transform:rotateY(180deg) translateZ(100px);}
+	.wrap .cube .out-left{transform:rotateY(-90deg) translateZ(100px);}
+	.wrap .cube .out-right{transform:rotateY(90deg) translateZ(100px);}
+	.wrap .cube .out-up{transform:rotateX(90deg) translateZ(100px);}
+	.wrap .cube .out-down{transform:rotateX(-90deg) translateZ(100px);}
+	
+	.wrap .cube:hover .out-front{transform: rotateY(0deg) translateZ(230px);}
+	.wrap .cube:hover .out-after{transform: rotateY(180deg) translateZ(230px);}
+	.wrap .cube:hover .out-left{transform: rotateY(-90deg) translateZ(230px);}
+	.wrap .cube:hover .out-right{transform: rotateY(90deg) translateZ(230px);}
+	.wrap .cube:hover .out-up{transform: rotateX(90deg) translateZ(230px);}
+	.wrap .cube:hover .out-down{transform: rotateX(-90deg) translateZ(230px);}
+
+	.wrap .cube span{
+		position:absolute;
+		top:65px;
+		left:110px;
+		display:block;
+		width:150px;
+		height:150px;
+		transform-style:preserve-3d;
+		opacity:1;
+	}
+	.wrap .cube span img{
+		display:block;
+		width:150px;
+		height:150px;
+	}
+	.wrap .cube span:nth-of-type(1){transform:rotateY(0deg) translateZ(75px);}
+	.wrap .cube span:nth-of-type(2){transform:rotateY(180deg) translateZ(75px);}
+	.wrap .cube span:nth-of-type(3){transform:rotateY(-90deg) translateZ(75px);}
+	.wrap .cube span:nth-of-type(4){transform:rotateY(90deg) translateZ(75px);}
+	.wrap .cube span:nth-of-type(5){transform:rotateX(90deg) translateZ(75px);}
+	.wrap .cube span:nth-of-type(6){transform:rotateX(-90deg) translateZ(75px);}
+
+	@-webkit-keyframes go{	
+		from{transform: rotateX(0deg) rotateY(0deg);}	
+		to{transform: rotateX(720deg) rotateY(720deg);}
+	}
+
+
+	</style>
+ </head>
+ <body>
+	<div class="wrap">
+		<div class="cube">
+			<!-- 前面的图片 -->
+			<div class="out-front"><img src="images/1.png" alt="" /></div>
+			<!-- 后面的图片 -->
+			<div class="out-after"><img src="images/6.jpg" alt="" /></div>
+			<!-- 左边的图片 -->
+			<div class="out-left"><img src="images/3.jpg" alt="" /></div>
+			<!-- 右边的图片 -->
+			<div class="out-right"><img src="images/4.jpg" alt="" /></div>
+			<!-- 上面的图片 -->
+			<div class="out-up"><img src="images/5.jpg" alt="" /></div>
+			<!-- 下面的图片 -->
+			<div class="out-down"><img src="images/2.jpg" alt="" /></div>
+			
+			<!-- 里面的正方体 -->
+			<!-- 前面的图片 -->
+			<span><img src="images/7.png" alt="" /></span>
+			<!-- 后面的图片 -->
+			<span><img src="images/8.jpg" alt="" /></span>
+			<!-- 左边的图片 -->
+			<span><img src="images/9.jpg" alt="" /></span>
+			<!-- 右边的图片 -->
+			<span><img src="images/10.jpg" alt="" /></span>
+			<!-- 上面的图片 -->
+			<span><img src="images/11.jpeg" alt="" /></span>
+			<!-- 下面的图片 -->
+			<span><img src="images/12.jpg" alt="" /></span>
+			
+		</div>
+	</div>
+ </body>
+</html>

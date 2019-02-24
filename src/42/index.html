@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #warp{
+            width: 100%;
+            height: 500px;
+            background: #ff0000;
+            position: relative;
+
+        }
+        #warp .first{
+            background: rgb(0,22,18);
+        }
+        #warp .two{
+            background: rgb(232,232,232);
+        }
+        #warp .three{
+            background: rgb(255,231,242);
+        }
+        #warp .four{
+            background: rgb(232,232,232);
+        }
+        #warp .five{
+            background: rgb(255,165,50);
+        }
+        #warp .six{
+            background: rgb(232,232,232);
+        }
+        .banner{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            opacity: 0;
+            transition:1s;
+        }
+        .banner-t{
+            width: 1230px;
+            margin: 0 auto;
+        }
+        .tab{
+            width: 100%;
+            position: absolute;
+            left: 0;
+            bottom: 10px;
+            text-align: center;
+
+
+        }
+        .tab span{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: rgba(105,105,105,0.5);
+            margin: 3px;
+            border-radius: 50%;
+        }
+        .tab span.on{
+            background: #ffffff;
+        }
+    </style>
+</head>
+<body>
+  <div id="warp">
+      <div class="banner first"> <!--放置背景颜色-->
+          <div class="banner-t"><!--放置图片-->
+              <img src="images/1.webp" />
+          </div>
+      </div>
+      <div class="banner two">
+          <div class="banner-t">
+              <img src="images/2.jpg" />
+          </div>
+      </div>
+      <div class="banner three">
+          <div class="banner-t">
+              <img src="images/3.jpg" />
+          </div>
+      </div>
+      <div class="banner four">
+          <div class="banner-t">
+              <img src="images/4.jpg" />
+          </div>
+      </div>
+      <div class="banner five">
+          <div class="banner-t">
+              <img src="images/5.webp" />
+          </div>
+      </div>
+      <div class="banner six">
+          <div class="banner-t">
+              <img src="images/6.webp" />
+          </div>
+      </div>
+      <div class="tab">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+      </div>
+  </div>
+  <script>
+      var awarp = document.getElementById("warp");
+      var abanner = document.getElementsByClassName("banner");
+      var bbanner = document.getElementsByClassName("banner-t");
+      var aspan = document.getElementsByClassName("tab")[0].getElementsByTagName("span");
+      //初始化显示 显示第一张图片
+
+      var num = 0;
+      var timer;
+      abanner[0].style.opacity = "1";
+      aspan[0].className = "on";
+
+      for(var i = 0 ;i<aspan.length;i++){
+          aspan[i].index = i;
+          aspan[i].onclick = function(){ //点击每个按钮触发事件
+             num = this.index;
+              for(var j=0;j<aspan.length;j++){  //先清空
+                  abanner[j].style.opacity = "0";
+                  aspan[j].className = "";
+              }
+              abanner[num].style.opacity = "1"; //在执行
+              aspan[num].className = "on";
+          }
+      }
+      timer = setInterval(function(){  //加入定时器实现自动轮播
+          num++;
+          num %=abanner.length;
+          for(var j=0;j<aspan.length;j++){  //先清空
+              abanner[j].style.opacity = "0";
+              aspan[j].className = "";
+          }
+          abanner[num].style.opacity = "1"; //在执行
+          aspan[num].className = "on";
+      },2000);
+      awarp.onmouseenter = function(){
+          clearInterval(timer);
+      }
+      awarp.onmouseleave = function(){
+          timer = setInterval(function(){
+              num++;
+              num %=abanner.length;
+              for(var j=0;j<aspan.length;j++){  //先清空
+                  abanner[j].style.opacity = "0";
+                  aspan[j].className = "";
+              }
+              abanner[num].style.opacity = "1"; //在执行
+              aspan[num].className = "on";
+          },2000);
+      }
+  </script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>登录系统 7 14 Xiao Feng</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0}
+		 ul li {list-style: none}
+		 body{
+		 	color: #fff;
+
+		 }
+		 #box{
+		 	overflow: hidden;
+		 	width: 300px;
+		 	height: 500px;
+		 	border: 1px solid pink;
+		 	margin:30px auto;
+		 	background-color: skyblue;
+		 }
+		 header{
+		 	position: relative;
+		 	width: 100%;
+		 	height: 50px;
+		 }
+		 header p{
+		 	font-size: 25px;
+		 	line-height: 50px;
+		 	text-indent: 10px;
+		 }
+		 .h-right{
+		 	position: absolute;
+		 	top: 0;
+		 	right: 0;
+		 	width: 60px;
+		 	height: 40px;
+           
+		 }
+		  .h-right span{
+		  	display: block;
+		  	width:30px;
+		  	height: 40px; 
+		  	float: left;
+		  	line-height: 40px;
+		  	text-align: center;
+		  	font-size: 25px;
+		  	cursor: pointer;
+		  }
+		  .login{
+		  	width: 100%;
+		  	height: 340px;
+		  	/*background-color: blue;*/
+		  }
+		  .login li{
+
+		  	width: 100%;
+		  	height: 70px;
+		  	padding-top: 10px;
+		  	border-bottom: 1px solid #000;
+		  	line-height: 30px;
+		  	padding-left: 10px;
+		  }
+		  .login li input{
+		  	width: 200px;
+		  	height: 20px;
+		  }
+		  .login li span{
+		  	display: block;
+		  	width: 300px;
+		  	height: 30px;
+		  	text-align: center;
+		  	color: #f00;
+		  }
+		 .btn{
+            width: 100%;
+            height: 50px;
+		 }
+		 .btn div{
+		 	width: 220px;
+		 	height: 40px;
+		 	background-color: #43C052;
+		 	color: #fff;
+		 	margin: 0 auto;
+		 	text-align: center;
+		 	line-height: 40px;
+		 	cursor: pointer;
+
+		 }
+	</style>
+</head>
+<body>
+	<div id="box">
+		<header>
+			<p>潭州课堂</p>
+			<div class="h-right">
+				<span>-</span>
+				<span>×</span>
+			</div>
+		</header>
+		<div class="login">
+			<ul>
+				<li>用户名：<input type="text" class="input"></input><span class="span">用户名必须是数字加字母且数字开头</span></li
+					>
+				<li>密&nbsp;&nbsp;&nbsp;码：<input type="text" class="input"></input><span class="span">密码只能是纯数字且不能小于六位</span></li>
+				<li>邮&nbsp;&nbsp;&nbsp;箱：<input type="text" class="input"></input><span class="span">请输入正确格式的邮箱</span></li>
+				<li>手机号：<input type="text" class="input"></input><span class="span">请输入正确的手机号</span></li>
+			</ul>
+		</div>
+		<div class="btn">
+			<div>登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</div>
+		</div>
+	</div>
+
+
+   <script>
+   	let oInp = document.getElementsByClassName('input');
+   	let oSpan = document.getElementsByClassName('span');
+   	let oSpan1 = document.querySelectorAll('.h-right span');
+   	let oBox = document.getElementById('box');
+   	oSpan1[1].onclick = function(){
+       oBox.style.display = 'none';
+   	}
+   	//console.log(oSpan)
+   	let len = oInp.length;
+   	for(let i = 0;i<len;i++){  //获得焦点
+   		oInp[i].onfocus = function(){
+   		oSpan[i].style.display = 'none';
+   	 }
+   	}
+   	   oInp[0].onblur = function(){  //失去焦点的情况
+       let value =this.value;
+       let reg = /^[1-9]+[a-z]{1,}/;
+       if( !reg.test(value)){
+           oSpan[0].style.display = 'block';
+       }
+   	 }
+
+   	  oInp[1].onblur = function(){  //失去焦点的情况
+       let value =this.value;
+       let reg = /^[1-9]\d{5,}$/;
+       if( !reg.test(value)){
+           oSpan[1].style.display = 'block';
+       }
+   	 }
+   	  oInp[2].onblur = function(){  //失去焦点的情况
+       let value =this.value;
+       let reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+       if(!reg.test(value)){
+           oSpan[2].style.display = 'block';
+       }
+   	 }
+
+   	  oInp[3].onblur = function(){  //失去焦点的情况
+       let value =this.value;
+       let reg =  /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/;
+       if(!reg.test(value)){
+           oSpan[3].style.display = 'block';
+       }
+   	 }
+
+   	
+   </script>
+</html>

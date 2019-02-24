@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>12 31 图片上传放大效果</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: #3c8fc1;
+        }
+        #wrap{
+            width: 900px;
+            height: 350px;
+            margin: 100px auto;
+            background: url("images/bg.jpg");
+            position: relative;
+        }
+        #pic{
+            position: absolute;
+            width: 300px;
+            height: 100px;
+            border: 1px solid red;
+            margin-top: 200px;
+            margin-left: 100px;
+            background: #cccccc;
+        }
+        #show{
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border: 1px solid red;
+            margin-left: 559px;
+            margin-top: 34px;
+            border-radius: 5px;
+
+        }
+        .pto{
+            float: left;
+             width: 80px;
+             height: 80px;
+             border: 1px solid #ccc;
+             margin: 10px;
+
+            background: url("images/img.png") no-repeat center ;
+         }
+        .name{
+            float: left;
+            width: 180px;
+            height: 80px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+            margin-left: -10px;
+            border-left: 0;
+            background: #ffffff;
+        }
+   .pto input{
+       width: 80px;
+       height: 80px;
+       opacity: 0;
+   }
+   #show img{
+       height: 280px;
+   }
+        .name input{
+            width: 180px;
+            height: 80px;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="pic">
+        <div class="pto">
+            <input type="file" onchange="upload(this)"/>
+        </div>
+        <div class="name">
+            <input type="text" id="picId"/>
+        </div>
+    </div>
+    <div id="show">
+        <img src="" alt="" id="img"/>
+    </div>
+</div>
+<script src="js/magnifier.js"></script>
+<script>
+    function upload(obj){
+      var oP = document.getElementById('picId');
+      var oImg = document.getElementById('img');
+      oP.value = obj.files[0].name;
+        var url = window.URL.createObjectURL( obj.files[0]);
+       oImg.src = url;
+        oImg.setAttribute('bigsrc',  oImg.src);
+    }
+</script>
+</body>
+</html>

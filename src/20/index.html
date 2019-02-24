@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>多样式99乘法表</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        span{
+            display: inline-block;
+            width: 70px;
+            height: 40px;
+            border: 1px solid pink;
+            text-align: center;
+            line-height: 40px;
+           margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="div"></div>
+<hr/>
+<div class="div"></div>
+<hr/>
+<div class="div"></div>
+<hr/>
+<div class="div"></div>
+<hr/>
+</body>
+<script>
+    let div = document.getElementsByClassName('div');
+
+    for(let i = 1 ;i<10;i++){
+        for(let j = 1 ;j<=i;j++){
+            div[0].innerHTML += "<span>"+ i + "*" + j + '=' + i*j +"</span>";
+        };
+        div[0].innerHTML +="<br>";
+    }
+
+    for(let i = 1 ;i<10;i++){
+        for (var j = i;j<=9;j ++ ) {
+            div[1].innerHTML += "<span>"+ i + "*" + j + '=' + i*j +"</span>";
+        }
+            div[1].innerHTML +="<br>";
+    }
+    for (var i=9;i>0;i-- )
+    {
+        for (var j=1;j<=i;j++ )
+        {
+            div[2].innerHTML += "<span>"+ i + "*" + j + '=' + i*j +"</span>";
+        };
+        div[2].innerHTML +="<br>";
+    };
+
+
+    for(let i = 9 ;i>0;i--){
+        for (var j = i;j<=9;j ++ ) {
+            div[3].innerHTML += "<span>"+ i + "*" + j + '=' + i*j +"</span>";
+        }
+        div[3].innerHTML +="<br>";
+    }
+</script>
+</html>

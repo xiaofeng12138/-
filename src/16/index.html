@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Xiao Feng</title>
+    <style type="text/css">
+        *{margin: 0;padding: 0}
+        ul li {list-style: none}
+        #wrap{
+            position: relative;
+            width: 600px;
+            height: 400px;
+            margin: 50px auto 0;
+        }
+        .list li{
+            position: absolute;
+            width: 600px;
+            height: 400px;
+            border: 1px solid pink;
+            display: none;
+        }
+        .list li img{
+            display: block;
+            width: 600px;
+            height: 400px;
+        }
+        #wrap .box {
+            display: none;
+        }
+        .box .tab{
+            position: absolute;
+            bottom: 0;
+            left: 0
+        z-index: 1;
+            width: 600px;
+            height: 30px;
+            display: none;
+        }
+        .box .tab li{
+            width: 30px;
+            height: 30px;
+            background-color: #fff;
+            border-radius: 50%;
+            float: left;
+            text-align: center;
+            line-height: 30px;
+            margin-left: 40px;
+            cursor: pointer;
+        }
+        #footer{
+            width: 600px;
+            height: 50px;
+            margin:30px auto;
+        }
+        #footer li{
+            width: 80px;
+            height: 50px;
+            background-color: #ccc;
+            text-align: center;
+            line-height: 50px;
+            float: left;
+            margin-left: 30px;
+            cursor: pointer;
+        }
+        #footer li.on{
+            background-color: #f60;
+        }
+        .list li.on{
+            display: block;
+        }
+        .box .tab.on{
+            display: block;
+        }
+        .box .tab li.on{
+            background-color: pink;
+        }
+        #wrap .box.on{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div class="box on">
+        <ul class="list">
+            <li class="on">
+                <img src="images/1.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/2.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/4.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/3.jpg" alt="">
+            </li>
+        </ul>
+        <ul class="tab on">
+            <li class="on">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+
+    <div class="box ">
+        <ul class="list">
+            <li class="on">
+                <img src="images/5.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/6.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/7.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/8.jpg" alt="">
+            </li>
+        </ul>
+        <ul class="tab">
+            <li class="on">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+
+    <div class="box">
+        <ul class="list">
+            <li class="on">
+                <img src="images/9.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/10.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/11.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/12.jpg" alt="">
+            </li>
+        </ul>
+        <ul class="tab">
+            <li class="on">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+
+    <div class="box ">
+        <ul class="list">
+            <li class="on">
+                <img src="images/13.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/14.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/15.jpg" alt="">
+            </li>
+            <li>
+                <img src="images/16.jpg" alt="">
+            </li>
+        </ul>
+        <ul class="tab">
+            <li class="on">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+</div>
+<div id="footer">
+    <ul class="btn">
+        <li class="on">阴阳家</li>
+        <li>流沙</li>
+        <li>墨家</li>
+        <li>儒家</li>
+    </ul>
+</div>
+</body>
+<script>
+    let oBox = document.getElementsByClassName('box'),
+            oTab = document.getElementsByClassName('tab'),
+            oBtn = document.querySelectorAll('.btn li'),
+            oList  = document.getElementsByClassName('list'),
+
+            len = oBtn.length,
+            index = 0;
+
+
+    for(let i=0;i<len;i++){
+        oBtn[i].onclick = function(){
+            oBox[index].classList.remove('on');
+            oBtn[index].classList.remove('on');
+            oTab[index].classList.remove('on');
+            index = i;
+            oBox[index].classList.add('on');
+            oBtn[index].classList.add('on');
+            oTab[index].classList.add('on');
+        }
+
+        let oBoxLi = oList[i].getElementsByTagName('li');
+        let oTabLi = oTab[i].getElementsByTagName('li');
+
+        console.log(oTabLi);
+
+        let idx = 0;
+
+        for(let j=0;j<oTab.length;j++){
+            oTabLi[j].onclick = function(){
+                oTabLi[idx].classList.remove('on');
+                oBoxLi[idx].classList.remove('on');
+                idx = j ;
+                oTabLi[idx].classList.add('on');
+                oBoxLi[idx].classList.add('on');
+            }
+        }
+    }
+
+</script>
+</html>

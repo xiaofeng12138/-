@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>2018-4-24</title>
+    <style>
+        #warp{
+            width: 600px;
+            height: 400px;
+            margin: 50px auto;
+        }
+        .top{
+            width: 600px;
+            height: 230px;
+            border-bottom: 1px solid #bbb;
+        }
+        .top p font{
+            font-size: 15px;
+            color: #000;
+            margin-right: 15px;
+        }
+        .top p span{
+            font-size:14px;
+            border: 1px solid #999;
+            color: #666;
+            display: inline-block;
+            padding: 8px;
+            cursor: pointer;
+        }
+        .top p span.on{
+            border:2px solid #f60;
+            padding: 7px;
+            background:url(img/on.png) no-repeat bottom right;
+        }
+        #bottom{
+            width: 600px;
+            height: 149px;
+            padding-top: 10px;
+        }
+        #bottom p font {
+            color: #f60;
+            font-size: 20px;
+            margin-left: 20px;
+        }
+        #bottom p i {
+            color: #09c;
+            margin: 0 5px;
+        }
+        #bottom button{
+            width: 330px;
+            height: 50px;
+            background: #f60;
+            font-size: 20px;
+            color: #fff;
+            border: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="warp">
+  <div class="top">
+    <p id="model">
+        <font>型号</font>
+        <span>4.7英寸</span>
+        <span>5.5英寸</span>
+    </p>
+      <p id="color">
+          <font>颜色</font>
+          <span>银色</span>
+          <span>金色</span>
+          <span>深空灰色</span>
+      </p>
+      <p id="rom">
+          <font>内存</font>
+          <span>16GB</span>
+          <span>64GB</span>
+          <span>128GB</span>
+      </p>
+      <p id="edition">
+          <font>版本</font>
+          <span>公开版</span>
+          <span>移动赠费版</span>
+          <span>联通合约版</span>
+      </p>
+  </div>
+    <div id="bottom">
+        <p> 价格:<font>￥<span id="price">5288</span></font> <a href=""><i>移动赠费版</i>或<i>联通合约版</i>购机价格计算请点击这里>.<</a></p>
+     <button>立即购买</button>
+    </div>
+</div>
+<script>
+    var mspan = document.getElementById('model').getElementsByTagName('span');
+    var cspan = document.getElementById('color').getElementsByTagName('span');
+    var rspan = document.getElementById('rom').getElementsByTagName('span');
+    var espan = document.getElementById('edition').getElementsByTagName('span');
+    var oSpan = document.getElementsByTagName('span');
+    var oModel = document.getElementById('model');
+    var oRom = document.getElementById('rom');
+    var oPrice = document.getElementById('price');
+
+    mspan[0].className = 'on';
+    cspan[0].className = 'on';
+    rspan[0].className = 'on';
+    espan[0].className = 'on';
+
+    for( var i=0;i<oSpan.length;i++){
+       oSpan[i].onclick = function(){
+           var os = this.parentNode.children; //同级下面的其他兄弟
+           for(var j=0;j<os.length;j++){
+            os[j].className = '';
+           }
+           this.className = 'on';
+           if(this.parentNode ==oModel || this.parentNode == oRom){
+               price();
+           }
+       }
+    }
+    function price(){
+        var p1 =0;
+        var p2 =0;
+        for(var i = 0;i<mspan.length;i++){
+            if(mspan[i].className == 'on')
+            {
+                p1 = i?6088:5288;
+                break;
+             }
+           };
+            for(var i = 0;i<rspan.length;i++)
+            {
+               if(rspan[i].className == 'on')
+               {
+                    switch (i)
+                    {
+                        case 0:
+                            p2 = 0;
+                            break;
+                        case 1:
+                            p2 = 800;
+                            break;
+                        case 2:
+                            p2=1600;
+                            break;
+                    }
+                }
+            }
+        oPrice.innerHTML = p1 + p2;
+    }
+</script>
+</body>
+</html>

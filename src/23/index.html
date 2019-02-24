@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Xiao Feng</title>
+	<style>
+		*{margin:0;padding:0;}
+		body{
+			background: #333;
+			user-select: none;
+			height: 2000px;
+		}
+		.clearfix::after{
+			content: "";
+			display: block;
+			clear: both;
+		}
+		[id*=box]{
+			position: relative;
+			width: 500px;
+			height: 500px;
+			margin:50px 50px;
+			float: left;
+		}
+		[id*=img]{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			display: block;
+		}
+		#img1{
+			opacity: 0.2;
+
+			filter: alpha(opacity=20);
+		}
+		 #img2{
+			clip: rect(0px,100px,100px,0px);
+		}
+		#img3{
+			top: 0;
+			left: 0;
+			clip: rect(0px,100px,100px,0px);
+		} 
+		#clip{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100px;
+			height: 100px;
+			border:1px solid white;
+			box-sizing: border-box;
+			cursor: move;
+			z-index: 3;
+			background: url(images/2.png);
+		}
+		#clip>div{
+			position: absolute;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			background: white;
+		}
+		#clip>.LeftTop{
+			top: -5px;
+			left: -5px;
+			cursor: nw-resize;
+		}
+		#clip>.RightTop{
+			top: -5px;
+			right: -5px;
+			cursor: ne-resize;
+		}
+		#clip>.RightBottom{
+			bottom: -5px;
+			right: -5px;
+			cursor: se-resize;
+		}
+		#clip>.LeftBottom{
+			bottom: -5px;
+			left: -5px;
+			cursor: sw-resize;
+		}
+		#clip>.top{
+			top: -5px;
+			left: 50%;
+			cursor: n-resize;
+			margin-left: -5px;
+		}
+		#clip>.right{
+			right: -5px;
+			top: 50%;
+			cursor: e-resize;
+			margin-top: -5px;
+		}
+		#clip>.bottom{
+			bottom: -5px;
+			left: 50%;
+			cursor: s-resize;
+			margin-left: -5px;
+		}
+		#clip>.left{
+			left: -5px;
+			top: 50%;
+			cursor: w-resize;
+			margin-top: -5px;
+		}
+		
+	</style>
+</head>
+<body>
+    <div id="box" ondragstart="return false" >
+    	<img src="images/2.jpg" id="img1">
+    	<img src="images/2.jpg" id="img2">
+    	<div id="clip" class="clip">
+    		<div class="LeftTop"></div>
+    		<div class="RightTop"></div>
+    		<div class="RightBottom"></div>
+    		<div class="LeftBottom"></div>
+    		<div class="top"></div>
+    		<div class="right"></div>
+    		<div class="bottom"></div>
+    		<div class="left"></div>
+    	</div>
+    </div>
+    <div id="box2">
+    	<img src="images/2.jpg" alt="" id="img3">
+    </div>
+		<script>
+		let oClip = document.getElementById('clip');
+		let oBox = document.getElementById('box');
+		let {max,min} = Math; // 解构赋值
+        //八个角缩放
+        document.onmousedown = function(e){
+           e = e|| window.event;
+           e.preventDefault();
+           let target = e.target ||scrElement;
+           let clipRect = oClip.getBoundingClientRect()
+           let boxRect = oBox.getBoundingClientRect()
+	       let downX = e.clientX;
+	   	   let downY = e.clientY;
+           //定位
+	   	   let downTop = clipRect.top - 50 ;
+	   	   let downLeft = clipRect.left -50;
+	   	  
+	   	   //宽高
+	       let downHeight = clipRect.height;
+	       let downWidth = clipRect.width;
+	       
+	       //父盒子的宽高
+	       let down_box_height = boxRect.height;
+	       let down_box_width = boxRect.width;
+         //console.log(downLeft)
+          document.onmousemove = function(e){
+          	 e = e || window.event;
+          	  //阻止冒泡
+	       if(e.stopPropagation){
+	           e.stopPropagation();
+	       }else {
+	         e.cancelBubble = true;
+	       }
+	        let x = e.clientX - downX;
+            let y = e.clientY - downY;
+
+           switch (target.className) {
+           case 'clip':
+                 let top = y + downTop; 
+                 let left = x + downLeft ;
+                  //限制边界
+                 top = max(0,top)
+                 top = min(down_box_height - downHeight,top)
+                 left = max(0,left)
+                 left = min(down_box_width - downWidth,left)
+                 target.style.top = top +'px';
+                 target.style.left = left + 'px'
+                 break;
+          case 'LeftTop':
+               	x = max(x, - downLeft);
+				x = min(x, downWidth - 100);
+				y = max(y, -downTop);
+				y = min(y, downHeight - 100);
+                oClip.style.left = downLeft + x  + "px";
+                oClip.style.top = downTop + y + "px";
+                oClip.style.width = downWidth - x  + "px";
+                oClip.style.height = downHeight - y + "px";
+                break;
+          case "top":
+                y = max(y, -downTop);
+				y = min(y, downHeight - 100);
+                oClip.style.top = downTop + y + "px";
+                oClip.style.height = downHeight - y + "px";
+                break;
+          case "RightTop":
+                y = max(y, -downTop);
+				y = min(y, downHeight - 100);
+				x = max(x, 100 - downWidth);
+				x = min(x, down_box_width - downWidth - downLeft);
+                oClip.style.top = downTop + y + "px";
+                oClip.style.width = downWidth + x  + "px";
+                oClip.style.height = downHeight - y + "px";
+                break;
+          case "right":
+                x = max(x, 100 - downWidth);
+				x = min(x, down_box_width - downWidth - downLeft);
+                oClip.style.width = downWidth + x  + "px";
+                break;
+          case "RightBottom":
+                x = max(x, 100 - downWidth);
+				x = min(x, down_box_width - downWidth - downLeft);
+				y = max(y, 100 - downHeight);
+				y = min(y, down_box_height - downHeight - downTop);
+                oClip.style.width = x + downWidth + "px";
+                oClip.style.height = y + downHeight + "px";
+                break;
+          case "bottom":
+                x = max(x, - downLeft);
+				x = min(x, downWidth - 100);
+          	    y = max(y, 100 - downHeight);
+				y = min(y, down_box_height - downHeight - downTop);
+                oClip.style.height = y + downHeight + "px";
+                break;
+          case "LeftBottom":
+                x = max(x, - downLeft);
+				x = min(x, downWidth - 100);
+                y = max(y, 100 - downHeight);
+				y = min(y, down_box_height - downHeight - downTop);
+                oClip.style.left = downLeft + x  + "px";
+                oClip.style.width = downWidth - x  + "px";
+                oClip.style.height = downHeight + y + "px";
+                break;
+          case "left":
+              	x = max(x, - downLeft);
+				x = min(x, downWidth - 100);
+                oClip.style.left = downLeft + x  + "px";
+                oClip.style.width = downWidth - x  + "px";
+                break;
+         }
+         // 在这里赋值 第二个图片的
+         let clipTop = clip.offsetTop;
+		 let clipLeft = clip.offsetLeft;
+		 let clipWidth = clip.offsetWidth;
+		 let clipHeight = clip.offsetHeight;
+
+		img2.style.clip = `rect(${clipTop}px, ${clipLeft + clipWidth}px, ${clipHeight + clipTop}px, ${clipLeft}px)`;
+		img3.style.clip = `rect(${clipTop}px, ${clipLeft + clipWidth}px, ${clipHeight + clipTop}px, ${clipLeft}px)`;
+
+		img3.style.top = -clipTop + 'px';
+		img3.style.left = -clipLeft + 'px';
+
+      }
+     }
+
+        document.onmouseup = function(){
+          this.onmousemove = null;
+        }
+
+
+
+
+
+
+
+
+
+		</script>
+		
+
+</body>
+</html>

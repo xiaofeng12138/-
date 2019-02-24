@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>hello world~!!</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+    <style>
+        *{margin: 0;padding: 0;}
+        body{font:16px/1.5 'Microsoft Yahei';}
+        .clearfix:after{content:'';display:block;clear:both;}
+        .fl{float:left;}
+        .fr{float:right;}
+        #wrap{
+            margin:50px auto;
+        }
+        #wrap .toolbar{
+            margin:auto;
+            background-color: #efefef;
+            padding:10px;
+            text-align: center;
+        }
+        #wrap .color, #wrap .bgc{
+            width:25px;
+            border:none;
+        }
+        #wrap .size,#wrap .opac{
+            width:60px;
+            text-align: center;
+        }
+        #wrap .toolbar .back{
+            width:60px;
+            height:30px;
+        }
+        #wrap .pane{
+            height:600px;
+            border:1px solid #ccc;
+            position: relative;
+            cursor:default;
+        }
+        #wrap .pane i{
+            position: absolute;
+            width:10px;
+            height:10px;
+            background: #000;
+            border-radius:50%;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="toolbar">
+            <input class='size' width='20' type="text" placeholder="size">
+            <input class='color' type="color">
+            <input class='bgc' type="color">
+            <input class='opac' width='20' type="text" placeholder="opacity">
+            <input class='back' width='20' type="button" value='后退'/>
+        </div>
+        <div class="pane">
+
+
+        </div>
+    </div>
+
+</body>
+    <script>
+        var toolbar = document.getElementsByClassName('toolbar')[0];
+        var size = document.getElementsByClassName('size')[0];
+        var color = document.getElementsByClassName('color')[0];
+        var bgc = document.getElementsByClassName('bgc')[0];
+        var pane = document.getElementsByClassName('pane')[0];
+        var opacity = document.getElementsByClassName('opac')[0];
+        var back = document.getElementsByClassName('back')[0];
+
+        var offsetT = pane.offsetTop
+        var offsetL = pane.offsetLeft
+        var box_size = 2;
+        var o_val = 1;
+        var color;
+        var arr = [];
+        var num = 0;
+        //size
+        bgc.onchange = function(){
+               pane.style.background = this.value;
+        }
+
+        //size
+        size.onchange = function(){
+               box_size= this.value;
+        }
+        //opacity
+        opacity.onchange = function(){
+               o_val= this.value;
+        }
+        //color
+        color.onchange = function(){
+               color= this.value;
+        }
+        //back
+        back.onclick = function(){
+            if( !arr.length){
+                return;
+            }
+
+            (function remove(){
+                if( arr[arr.length-1].length ){
+                   pane.removeChild( arr[ arr.length-1].pop() );
+                   remove();
+                }
+            })()
+            arr.pop()
+        }
+        //pane
+        pane.onmousedown = function(e){
+                arr.push([]);
+                size.blur();
+                opacity.blur();
+                e = e|| window.event;
+               var i = document.createElement('i');
+               i.style.width = box_size+'px';
+               i.style.height = box_size+'px';
+               i.style.top = e.clientY-offsetT+'px';
+               i.style.left = e.clientX-offsetL+'px';
+               i.style.opacity = o_val;
+               i.style.background = color;
+               this.appendChild(i);
+               arr[arr.length-1].push(i);
+
+            pane.onmousemove = function(e){
+                e = e|| window.event;
+                var i = document.createElement('i');
+               i.style.width = box_size+'px';
+               i.style.height = box_size+'px';
+               i.style.top = e.clientY-offsetT+'px';
+               i.style.left = e.clientX-offsetL+'px';
+               i.style.opacity = o_val;
+               i.style.background = color;
+
+               this.appendChild(i);
+               arr[arr.length-1].push(i);
+
+            }
+            pane.onmouseup = function(e){
+                pane.onmousemove = null;
+                num++;
+            }
+
+
+            return false;
+
+        }
+
+
+
+        function addEvent(obj,eventType,fn,boolean){
+            //事件兼容处理
+            boolean=boolean?boolean:false;
+            window.handle = handle;//把处理函数赋值给window，便于后面的清除
+             obj.addEventListener?obj.addEventListener(eventType,window.handle,boolean):obj.attachEvent('on'+eventType,window.handle);
+
+             //兼容:鼠标滚动
+             if(eventType=='mousewheel'){
+                obj.onmousewheel = window.handle;//兼容ie chrome
+                obj.addEventListener?obj.addEventListener('DOMMouseScroll',window.handle,boolean):false;   //兼容firefox
+
+             }
+             //滚动函数event对象处理
+
+             function handle(e){
+                e = e || window.event;
+                console.log( 'ok')
+                e.wheel = e.wheelDelta?e.wheelDelta:-e.detail*40;
+                fn.call(obj,e);
+            }
+
+        }
+
+        function removeEvent(obj,eventType,fn,boolean){
+            boolean=boolean?boolean:false;
+            obj.removeEventListener?obj.removeEventListener(eventType,window.handle,boolean):obj.detachEvent('on'+eventType,window.handle);
+            //兼容:鼠标滚动
+             if(eventType=='mousewheel'){
+                obj.onmousewheel = null;//兼容ie chrome
+                eventType ='DOMMouseScroll';
+                obj.removeEventListener?obj.removeEventListener(eventType,window.handle,boolean):false;   //兼容firefox
+
+             }
+
+
+        }
+
+
+
+
+
+
+    </script>
+</html>

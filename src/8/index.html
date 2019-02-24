@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+
+        }
+        #box{
+            width: 450px;
+            height: 380px;
+            border: 2px solid #3399ff;
+            margin: 100px auto;
+            border-radius: 5px;
+        }
+        #top{
+
+            width: 100%;
+            height: 50px;
+            border-bottom: 1px solid #3399ff;
+            font-size: 15px;
+        }
+        #year{margin: 15px 10px;}
+        #year #month{
+            text-align: center;
+            margin-right: 15px;
+        }
+        #con{
+            width: 420px;
+            height: 300px;
+            margin: 0 auto 0;
+        }
+        #con ul.week{
+           width: 420px;
+            height: 45px;
+        }
+        #con ul.week li{
+            width: 60px;
+            height: 45px;
+            line-height: 45px;
+            text-align: center;
+            float: left;
+        }
+        #con ul.day li{
+            width: 60px;
+            height: 45px;
+            border-top: 1px solid #ddd;
+            float: left;
+            line-height: 50px;
+            text-align: center;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <div id="top">
+        <select  id="year">
+            <option value="">请选择年份</option>
+        </select>年&nbsp&nbsp;
+        <select  id="month">
+            <option value="">请选择月份</option>
+        </select>  月&nbsp&nbsp;
+        <input type="button" onclick="query()" value="查询" style="width: 50px;height: 20px">
+
+    </div>
+    <div id="con">
+        <ul class="week">
+            <li>一</li>
+            <li>二</li>
+            <li>三</li>
+            <li>四</li>
+            <li>五</li>
+            <li>六</li>
+            <li>日</li>
+        </ul>
+        <ul class="day">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    var listYear = document.getElementById("year");
+    var listMonth = document.getElementById("month");
+    var dayLi = document.querySelectorAll(".day li");//通过选择器获取到日历下面的所有的 li
+//    for(var  i =1900;i<2051;i++){
+//        //生成一个option元素节点
+//        var year = document.createElement("option");
+//        year.innerHTML = i;
+//        year.value = i;
+//        //往list子集后面添加子节点
+//        listYear.appendChild(year);
+//    }
+    forEach (function(i){
+        var year = document.createElement("option");
+        year.innerHTML =i;
+        year.value = i;
+        //往list子集后面添加子节点
+        listYear.appendChild(year);
+    },2051,1900);
+
+    forEach (function(i){
+        var month = document.createElement("option");
+        month.innerHTML =i;
+        month.value = i;
+        //往list子集后面添加子节点
+        listMonth.appendChild(month);
+    },13,1);
+
+    //封装for循环函数
+     function forEach(callback,end,firstNum){
+         //循环内部声明一个初始值
+         var i = firstNum || 0;
+         //如果第三个参数存在 就等于这个值 否则为0;
+         for( ;i<end;i++){
+             callback(i); //回调函数
+         }
+     }
+    //封装查询函数
+    /*
+    查询需要的条件
+    1 年月 必须全选
+    2 当月的第一天  当月第一天是星期几 月份在Data对象中从 0开始的
+    * */
+     var dateArr = [31,28,31,30,31,30,31,31,30,31,30,31];
+
+    //判断闰年的函数
+    function isLeap(year){
+        if ((year%4 == 0 && year%100 != 0) || year%400 == 0)
+        {
+            return true; //闰年
+        }else{
+            return false; //平年
+        }
+    }
+     function query(){
+      if(listYear.value =="" || listMonth.value ==""){
+          alert("请正确填写年月")
+      }else{
+          var thisTime = new Date(listYear.value,listMonth.value-1,1); //获取选中的年月
+          if(isLeap(listYear.value)){
+              dateArr[1] = 29;
+          }else{
+              dateArr[1] = 28;
+          }
+          //dateArr[1] = isLeap(listYear.value)?29:28; //三目运算表示判断方法
+         // console.log(dateArr[1]);
+          var firstDay = thisTime.getDay();
+          //循环遍历日历中的每一天
+          forEach(function(i){
+              dayLi[i + firstDay-1].innerHTML = i + 1;
+          },dateArr[listMonth.value-1]);
+      }
+    }
+
+</script>
+</body>
+</html>

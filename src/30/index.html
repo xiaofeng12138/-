@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Xiao Feng</title>
+  <style>
+    *{margin:0;padding:0;}
+    #box{
+      position: relative;
+      width: 500px;
+      height: 500px;
+      margin:50px auto;
+      border:1px solid;
+    }
+    #box > div{
+      position: absolute;
+      width: 50px;
+      height: 50px;
+    }
+  </style>
+  <script src="animation.js"></script>
+</head>
+<body>
+  <div id="box"></div>
+  <script>
+    /* 
+      01 02 03 04 05 06 07 08 09 10
+      11 12 13 14 15 16 17 18 19 20
+      21 22 23 24 25 26 27 28 29 30
+      31 32 33 34 35 36 37 38 39 40
+      41 42 43 44 45 46 47 48 49 50
+      51 52 53 54 55 56 57 58 59 60
+      61 62 63 64 65 66 67 68 69 70
+      71 72 73 74 75 76 77 78 79 80
+      81 82 83 84 85 86 87 88 89 90
+      91 92 93 94 95 96 97 99 99 100
+     */
+    
+    let box = document.getElementById("box");
+    let div = box.getElementsByTagName("div");
+    let {floor: f, random: r} = Math;
+    let arr = [];
+    let len = 100;
+
+
+    for (let i = 0; i < len; i++)arr.push(i);
+    
+    arr.sort((a, b) => r() - 0.5);
+    
+    let i = 0;
+    run();
+    function run(){
+      // 取数组对应的值
+      let value = arr[i];
+      
+      // 超过数组的长度，就停止
+      if(i > len - 1) return;
+      let top = f(value/10) * 50;
+      let left = (value%10) * 50;
+      
+      box.innerHTML += "<div></div>";
+      div[i].style.cssText = `background: url(./1.jpg) -${left}px -${top}px ;`
+      
+      animation(div[i], {
+        data: {
+          top,
+          left
+        }
+      }, 100, () => {
+        i++
+        requestAnimationFrame(run);
+      })
+    }
+    
+  </script>
+</body>
+</html>

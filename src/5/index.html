@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>点击轮播</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: #666;
+        }
+        #wrap{
+            position: relative;
+            width:600px;
+            height: 350px;
+            margin: 50px auto;
+        }
+        .box{
+            position: relative;
+            width:600px;
+            height: 350px;
+        }
+        .box img{
+
+            width:100% ;
+            height: 100%;
+        }
+        #btn div{
+            width: 30px;
+            height: 50px;
+            background-color: #ccc;
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        #btn div:nth-child(1){
+            position: absolute;
+            top: 150px;
+            left: 0;
+        }
+        #btn div:nth-child(2){
+            position: absolute;
+            top: 150px;
+            right: 0;
+        }
+        #click{
+            width: 600px;
+            height: 50px;
+            margin: auto;
+            text-align: center;
+            margin-top: 20px;
+        }
+        #click button{
+            width: 80px;
+            height: 40px;
+            margin-left: 20px;
+        }
+        p{
+            width: 100%;
+            height: 30px;
+            background-color: rgba(0,0,0, .5);
+            text-align: center;
+            color: #fff;
+            line-height: 30px;
+        }
+        .p1{
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .p2{
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        ul li{
+            position: absolute;
+            width:100% ;
+            height: 100%;
+            list-style: none;
+            display: none;
+        }
+        #click .on{
+            background-color: pink;
+            color: #fff;
+        }
+        ul li.onn{
+            display: block;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div class="box">
+        <ul>
+            <li> <img src="images/1.jpg" alt=""/></li>
+            <li> <img src="images/2.jpg" alt=""/></li>
+            <li> <img src="images/3.jpg" alt=""/></li>
+            <li> <img src="images/4.jpg" alt=""/></li>
+            <li> <img src="images/5.jpg" alt=""/></li>
+        </ul>
+    </div>
+    <p class="p1">1/5</p>
+    <p class="p2">大叔和蓉姐姐</p>
+    <div id="btn">
+        <div id="left">&lt;</div>
+        <div id="right">&gt;</div>
+    </div>
+    <div id="click">
+        <button>正常模式</button>
+        <button>循环模式</button>
+    </div>
+</div>
+<script>
+    var oBtn = document.getElementById('btn').getElementsByTagName('div');
+    var oClick = document.getElementById('click').getElementsByTagName('button');
+    var oLi = document.getElementsByTagName('li');
+    var oP =document.getElementsByTagName('p');
+    var arr = ['大叔和蓉姐姐','少司命1','少司命2','晓梦大师','焰灵姬'];
+    var index = 0;
+    oLi[0].style.display = 'block';
+    oClick.ind = 0;
+    oClick[0].className = 'on';
+
+    for(let i = 0;i<oClick.length;i++){  // 模式切换
+        oClick[i].onclick = function(){
+            oClick[ oClick.ind].className = '';
+            oClick.ind = i;
+            oClick[i].className = 'on';
+        }
+    }
+
+    oBtn[0].onclick = function() {
+        oLi[index].className = '';
+        index--;
+
+        if(  oClick.ind === 1){
+            if (index < 0) {
+                index = 4;
+            }
+            oLi[index].className = 'onn ';
+        }else{
+            if (index < 0) {
+                index = 0;
+            }
+            oLi[index].className = 'onn ';
+        }
+        oP[0].innerHTML = (index+1) +'/'+ 5;
+        oP[1].innerHTML = arr[index];
+    };
+
+    oBtn[1].onclick = function() {
+        oLi[index].className = '';
+        index++;
+        if(  oClick.ind === 1){
+            if (index >= 4) {
+                index = 0;
+            }
+            oLi[index].className = 'onn ';
+        }else{
+            if (index >= 4) {
+                index = 4;
+            }
+            oLi[index].className = 'onn ';
+        }
+        oP[0].innerHTML = (index+1) +'/'+ 5;
+        oP[1].innerHTML = arr[index];
+    }
+</script>
+</body>
+</html>

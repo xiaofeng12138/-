@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas绘制时钟</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,
+        body{
+            width: 100%;
+            height: 100%;
+        }
+        body{
+            overflow-y: hidden;
+            background: #575666;
+        }
+        canvas{
+            display: block;
+            margin: 30px auto;
+            background: #575666;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" width="300" height="300">纳尼！！！</canvas>
+<script type="text/javascript">
+    var canvas = document.getElementById('canvas');
+    var can = canvas.getContext('2d');
+    clock();
+    setInterval(clock,1000);
+    function clock(){
+        can.clearRect(0,0,canvas.width,canvas.height);
+        // 获取时间
+        var nowTime = new Date();
+        var H = nowTime.getHours();
+        var M = nowTime.getMinutes();
+        var S = nowTime.getSeconds();
+        H = H + M/60;
+        M = M + S/60;
+        can.strokeStyle = '#1A1A1A';
+        can.lineWidth = 10;
+        // 绘制表盘
+        can.save();
+        can.translate(150,150);
+        can.beginPath();
+        can.arc(0,0,150,0,Math.PI*2,false);
+        can.stroke();
+        can.restore();
+        // 绘制数字
+        for( var i=1; i<=12; i++ ){
+            can.save();
+            can.translate(150,150);
+            can.rotate(i*30*Math.PI/180);
+            can.font = '24px microsoft yahei';
+            can.fillStyle = '#B0FC4D';
+            can.textBaseline = 'top';
+            can.textAlign = 'center';
+            can.shadowOffsetX = 1;
+            can.shadowOffsetY = 1;
+            can.shadowOffsetY = 2;
+            can.shadowBlur = 3;
+            can.shadowColor = '#fff';
+            can.fillText(i,0,-140);
+            can.restore();
+            // 时的小原点
+            can.save();
+            can.translate(150,150);
+            can.rotate(i*30*Math.PI/180);
+            can.beginPath();
+            can.arc(0,-105,2,0,2*Math.PI,false);
+            can.lineWidth = 3;
+            can.fillStyle = '#E6FFD4';
+            can.fill();
+            can.restore();
+        }
+        // 绘制时钟分刻度
+        for( var i=0; i<60; i++ ){
+            can.save();
+            can.translate(150,150);
+            can.rotate(i*6*Math.PI/180);
+            can.beginPath();
+            can.arc(0,-105,1,0,2*Math.PI,false);
+            can.lineWidth = 3;
+            can.fillStyle = '#E6FFD4';
+            can.fill();
+            can.restore();
+        }
+        // 绘制时针
+        time( H*30 , -70 , 7 );
+        // 绘制分针
+        time( M*6 , -90 , 5 );
+        // 绘制秒针
+        time( S*6 , -100 , 2 );
+        // 绘制中心原点
+        can.save();
+        can.translate(150,150);
+        can.beginPath();
+        can.arc(0,0,4,0,2*Math.PI,false);
+        can.fillStyle = '#626262';
+        can.fill();
+        can.restore();
+        // 时 分 秒封装
+        function time( rotate,range,lineW ){
+            can.save();
+            can.translate(150,150);
+            can.rotate(rotate*Math.PI/180);
+            can.beginPath();
+            can.moveTo(0,10);
+            can.lineTo(0,range);
+            can.closePath();
+            can.lineJoin = 'round';
+            can.lineWidth = lineW;
+            can.stroke();
+            can.restore();
+        }
+    }
+</script>
+</body>
+</html>

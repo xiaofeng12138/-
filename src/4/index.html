@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+            body{
+                background: #ff0000;
+            }
+			#box{
+
+                position: relative;
+				width: 854px;
+				height: 504px;
+				background:#f00 url("images/bg1.png");
+                margin: 50px auto;
+			}
+            .aa{
+                position: absolute;
+                left: 181px;
+                top: 105px;
+                width: 294px;
+                height: 294px;
+                background: url("images/arrow.png");
+            }
+            .user{
+                position: absolute;
+                right: 39px;
+                top: 140px;
+                width: 140px;
+                height: 330px;
+                border: 1px solid yellow;
+                overflow: hidden;
+            }
+            .user ul li{
+
+                list-style: none;
+                height: 37px;
+                background:url("images/user.png") no-repeat 8px center;
+                color: yellow;
+                line-height: 37px;
+                text-indent: 25px;
+
+            }
+            .user ul{
+                position: relative;
+            }
+            .result{
+                position: absolute;
+                left: 128px;
+                top: 190px;
+                width: 400px;
+                height: 120px;
+                background: rgba(0,0,0,0.5);
+                display: none;
+            }
+            .result a{
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 24px;
+                height: 24px;
+                background: url("images/close.png");
+
+            }
+            .result p{
+                color: #FFFFFF;
+                text-align: center;
+                line-height: 120px;
+            }
+
+		</style>
+        <script  src="js/jquery.min.js"></script>
+        <script src="js/jquery.rotate.min.js" ></script>
+	</head>
+	<body>
+		<div id="box">
+			<div class="aa">  </div>
+            <div class="user">
+                <ul>
+                    <li>181****9657</li>
+                    <li>153****6523</li>
+                    <li>162****5127</li>
+                    <li>115****9785</li>
+                    <li>136****5211</li>
+                    <li>156****3562</li>
+                    <li>151****9857</li>
+                    <li>152****5145</li>
+                    <li>153****5367</li>
+                    <li>152****9536</li>
+                    <li>181****9657</li>
+                    <li>181****9657</li>
+                    <li>181****9657</li>
+                    <li>181****9657</li>
+                    <li>181****9657</li>
+                    <li>181****9657</li>
+                    <li>181****9657</li>
+                    <li>181****9657</li>
+                    <li>181****9657</li>
+                    <li>181****9657</li>
+                    <li>181****9657</li>
+                    <li>181****9657</li>
+                    <li>181****9657</li>
+                    <li>181****9657</li>
+                    <li>181****9657</li>
+                    <li>181****9657</li>
+                    <li>181****9657</li>
+
+                </ul>
+
+            </div>
+            <div class="result">
+                <a ></a>
+                <P>谢谢参与</P>
+            </div>
+            <script type="text/javascript">
+                    var $this ;
+                $(".aa").click (function( ){  //点击实现什么效果
+                    $this = $(this);
+                    var n = Math.floor(Math.random()*8); //生成0 --7 之间的随机数
+                    switch (n){
+                        case 0:
+                            rotateFun(0 ,"谢谢参与!!!");
+                            break;
+                        case 1:
+                            rotateFun(45,"恭喜你，获得5元代金券");
+                            break;
+                        case 2:
+                            rotateFun(90,"恭喜你，获得1元代金券");
+                            break;
+                        case 3:
+                            rotateFun(135,"恭喜你，获得10元代金券");
+                            break;
+                        case 4:
+                            rotateFun(180,"谢谢参与!!!");
+                            break;
+                        case 5:
+                            rotateFun(225,"恭喜你，获得20元代金券");
+                            break;
+                        case 6:
+                            rotateFun(270,"恭喜你，获得50元代金券");
+                            break;
+                        case 7:
+                            rotateFun(315,"恭喜你，获得30元代金券");
+                            break;
+                    }
+                    $(".result a").click(function(){
+                        $(".result").hide();
+                    })
+                });
+                function rotateFun(deg,txt){
+                    $this.rotate({  //旋转
+                        angle:0,       //初始位置
+                        duration:4000, //过程所需要的时间
+                        animateTo:360*2+deg, //旋转的角度
+                        callback:function(){
+                            $(".result").show();  //让结果盒子显示出来
+                            $(".result p").html(txt);
+                        }
+                    });
+                }
+                    setInterval(function(){
+                        $(".user ul").animate({top:"-37px"},500,function(){
+                            //当移动完成时就把第一个放在最后面
+                            $(this).append($(".user ul li:first"));
+                            $(this).css("top",0);
+                        });
+                    },1500);
+
+            </script>
+		</div>
+	</body>
+</html>

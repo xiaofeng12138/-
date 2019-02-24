@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: url("images/2.jpg") center;
+        }
+        #warp{
+            width: 850px;
+            height: 400px;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+        .left{
+            float: left;
+            width: 500px;
+            height: 300px;
+
+        }
+        .right{
+            float: right;
+            width: 258px;
+            height: 258px;
+            border: 1px solid red;
+        }
+        .left ul li{
+            float: left;
+            list-style: none;
+            width: 200px;
+            height: 40px;
+            background: #444;
+            margin: 10px 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor:pointer;
+        }
+        .left ul li span{
+            float: left;
+            width: 50px;
+            height: 40px;
+            color: #ffffff;
+            text-align: center;
+            font-size: 12px;
+            line-height: 40px;
+
+        }
+        .left ul li input{
+            float: left;
+             width: 150px;
+            height: 40px;
+            border: 0;
+            text-indent: 10px;
+        }
+       #btn{
+           width: 440px;
+           text-align: center;
+           font-size: 12px;
+           line-height: 40px;
+           background: greenyellow;
+       }
+
+    </style>
+</head>
+<body>
+<div id="warp">
+    <div class="left">
+        <ul>
+            <li>
+                <span>姓名:</span>
+                <input type="text" id="name"/>
+            </li>
+            <li>
+                <span>公司:</span>
+                <input type="text" id="company"/>
+            </li>
+            <li>
+                <span>职务:</span>
+                <input type="text" id="title"/>
+            </li>
+            <li>
+                <span>地址:</span>
+                <input type="text" id="address"/>
+            </li>
+            <li>
+                <span>手机:</span>
+                <input type="text" id="mobile"/>
+            </li>
+            <li>
+                <span>邮箱:</span>
+                <input type="text" id="email"/>
+            </li>
+            <li>
+            <span>网址:</span>
+            <input type="text" id="web"/>
+        </li>
+            <li>
+                <span>备注:</span>
+                <input type="text" id="desc"/>
+            </li>
+            <li id ="btn">
+                点击开启通讯录
+            </li>
+        </ul>
+    </div>
+    <div class="right" id="cord"></div>
+</div>
+<script src="js/qrcode.js"></script>
+<script>
+    var name,company,title,address,mobile,email,web,desc;
+    var oBtn =document.getElementById("btn");
+   oBtn.onclick = function(){
+        name = "FN:" + document.getElementById("name").value+"\n";
+       company ="ORG:" +document.getElementById("company").value+"\n";
+       title = "TITLE:" +document.getElementById("title").value+"\n";
+       address = "ADR;WORK:" +document.getElementById("address").value+"\n";
+       mobile ="TEL:" + document.getElementById("mobile").value+"\n";
+       email ="EMAIL:" + document.getElementById("email").value+"\n";
+       web = "URL:" +document.getElementById("web").value+"\n";
+       desc ="NOTE:" + document.getElementById("desc").value+"\n";
+
+       var info = "BEGIN:VCARD\n"+name+company+title+address+mobile+email+web+desc+"END:VCARD";
+
+       //console.log(info);
+       var qrcode = new QRCode("cord");
+       qrcode.makeCode(info);
+      }
+</script>
+</body>
+</html>
